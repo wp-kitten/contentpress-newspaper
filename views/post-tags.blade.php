@@ -27,13 +27,13 @@
 
                     {{-- MAIN CONTENT --}}
                     <div class="col-sm-12 col-md-9">
-                        <div class="{{cp_post_classes()}}">
+                        <div class="{{vp_post_classes()}}">
                             @if(empty($tags))
                                 @include('partials.no-content', [ 'class' => 'info', 'text' => __('np::m.No tags found')])
                             @else
                                 @foreach($tags as $tag)
                                     @if($tag->posts()->count())
-                                        <a href="{{cp_get_tag_link($tag)}}" class="tag-link">
+                                        <a href="{{vp_get_tag_link($tag)}}" class="tag-link">
                                             {!! $tag->name !!}
                                         </a>
                                     @endif

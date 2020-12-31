@@ -4,7 +4,7 @@
     if(! $postCategory){
         return;
     }
-    $_posts = cp_get_related_posts($post->categories()->first(), 12, $post->id);
+    $_posts = vp_get_related_posts($post->categories()->first(), 12, $post->id);
 @endphp
 @if($_posts && $_posts->count())
     <section class="related-posts">
@@ -21,7 +21,7 @@
                             {!! $newspaperHelper->getPostImageOrPlaceholder($entry, '', 'image-responsive', ['alt' => $entry->title]) !!}
                         </div>
                         <div class="hentry-content">
-                            <h4 class="hentry-title"><a href="{{cp_get_permalink($entry)}}">{!! $entry->title !!}</a>
+                            <h4 class="hentry-title"><a href="{{vp_get_permalink($entry)}}">{!! $entry->title !!}</a>
                             </h4>
                         </div>
                     </article>

@@ -8,7 +8,7 @@
         <h3 class="text-danger">{{__('np::m.Search')}}</h3>
     </div>
     <div class="widget-content mt-4 mb-2">
-        {{cp_search_form()}}
+        {{vp_search_form()}}
     </div>
 </div>
 
@@ -22,8 +22,8 @@
                 @foreach($posts as $post)
                     <li class="mb-3">
                         {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive rounded', ['alt' => $post->title]) !!}
-                        <a href="{{cp_get_permalink($post)}}" class="text-info ml-2" title="{{$post->title}}">
-                            {!! cp_ellipsis(wp_kses_post($post->title), 60) !!}
+                        <a href="{{vp_get_permalink($post)}}" class="text-info ml-2" title="{{$post->title}}">
+                            {!! vp_ellipsis(wp_kses_post($post->title), 60) !!}
                         </a>
                     </li>
                 @endforeach

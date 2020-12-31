@@ -51,7 +51,7 @@
 
                                                 <section class="hentry-content">
                                                     <h4 class="hentry-title">
-                                                        <a href="{{cp_get_permalink($post)}}" class="text-info">
+                                                        <a href="{{vp_get_permalink($post)}}" class="text-info">
                                                             {!! wp_kses_post($post->title) !!}
                                                         </a>
                                                     </h4>

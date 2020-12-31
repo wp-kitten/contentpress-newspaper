@@ -1,11 +1,11 @@
 {
-    "name": "contentpress-newspaper",
+    "name": "valpress-newspaper-theme",
     "extends": "",
-    "asset-path": "contentpress-newspaper/assets",
-    "views-path": "contentpress-newspaper/views",
+    "asset-path": "valpress-newspaper-theme/assets",
+    "views-path": "valpress-newspaper-theme/views",
 
-    "display_name": "[ContentPress] Newspaper",
-    "version": "0.1",
+    "display_name": "[ValPress] Newspaper",
+    "version": "1.0",
     "authors": [
         {
             "name": "wp-kitten",
@@ -13,8 +13,8 @@
         }
     ],
     "contributors": [],
-    "page_url": "https://github.com/wp-kitten/contentpress-newspaper",
-    "update_url": "http://api.contentpress.news/api/theme/info/contentpress-newspaper",
-    "description": "Syndication theme for ContentPress",
+    "page_url": "https://github.com/wp-kitten/valpress-newspaper-theme",
+    "update_url": "http://api.valpress.news/api/theme/info/valpress-newspaper-theme",
+    "description": "Syndication theme for ValPress",
     "thumbnail": "thumb.png"
 }

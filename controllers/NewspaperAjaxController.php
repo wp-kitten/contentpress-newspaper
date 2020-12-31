@@ -89,9 +89,9 @@ class NewspaperAjaxController extends Controller
                 $cache[ 'posts' ][ $post->id ] = [
                     'image_url' => $newspaperHelper->getPostImageOrPlaceholder( $post, '', 'image-responsive', [ 'alt' => $post->title ] ),
                     'post_title' => $post->title,
-                    'post_url' => cp_get_permalink( $post ),
+                    'post_url' => vp_get_permalink( $post ),
                     'category_name' => $post->firstCategory()->name,
-                    'category_url' => cp_get_category_link( $post->firstCategory() ),
+                    'category_url' => vp_get_category_link( $post->firstCategory() ),
                 ];
             }
             $cacheClass->set( $cacheKey, $cache );

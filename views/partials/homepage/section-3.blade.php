@@ -51,15 +51,15 @@
                     <header class="hentry-header">
                         {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive', ['alt' => $post->title]) !!}
                         <div class="hentry-category bg-danger">
-                            <a href={{cp_get_category_link($category)}} class="text-light">
+                            <a href={{vp_get_category_link($category)}} class="text-light">
                                 {!! $category->name !!}
                             </a>
                         </div>
                     </header>
                     <section class="hentry-content">
                         <h4 class="hentry-title">
-                            <a href={{cp_get_permalink($post)}} class="text-info">
-                                {!! cp_ellipsis($post->title, 100) !!}
+                            <a href={{vp_get_permalink($post)}} class="text-info">
+                                {!! vp_ellipsis($post->title, 100) !!}
                             </a>
                         </h4>
                     </section>
@@ -81,8 +81,8 @@
                         <div class="col-sm-12 col-md-8">
                             <section class="hentry-content">
                                 <h4 class="hentry-title @if(!wp_is_mobile()) title-small font-default @endif">
-                                    <a href={{cp_get_permalink($post)}} class="text-info">
-                                       {!! cp_ellipsis($post->title, 60) !!}
+                                    <a href={{vp_get_permalink($post)}} class="text-info">
+                                       {!! vp_ellipsis($post->title, 60) !!}
                                     </a>
                                 </h4>
                             </section>

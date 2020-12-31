@@ -36,21 +36,21 @@
                                 <div class="hentry-header">
                                     {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive', ['alt' => $post->title]) !!}
                                     <h4 class="hentry-title">
-                                        <a href="{{cp_get_permalink($post)}}">{!! cp_ellipsis($post->title, 50) !!}</a>
+                                        <a href="{{vp_get_permalink($post)}}">{!! vp_ellipsis($post->title, 50) !!}</a>
                                     </h4>
                                 </div>
                                 <div class="np-relative">
                                     <div class="hentry-content">
                                         <div class="hentry-meta">
-                                            <span>{{cp_the_date($post)}}</span>
+                                            <span>{{vp_the_date($post)}}</span>
                                             <span class="hentry-category">
-                                                <a href={{cp_get_category_link($category)}}>
+                                                <a href={{vp_get_category_link($category)}}>
                                                     {!! $category->name !!}
                                                 </a>
                                         </span>
                                         </div>
                                     </div>
-                                    <div class="pt-0 pl-3 pb-3 pr-3">{!! cp_ellipsis($post->excerpt, 80) !!}</div>
+                                    <div class="pt-0 pl-3 pb-3 pr-3">{!! vp_ellipsis($post->excerpt, 80) !!}</div>
                                 </div>
                             </article>
                         </div>

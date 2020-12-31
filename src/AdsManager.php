@@ -13,7 +13,7 @@ class AdsManager
 
     public static function getAds()
     {
-        $theme = cp_get_current_theme();
+        $theme = vp_get_current_theme();
         return [
             'fb' => [
                 'image_url' => $theme->url( 'assets/img/fb-ad-placeholder.png' ),

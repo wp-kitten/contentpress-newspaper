@@ -17,16 +17,16 @@
     @hasSection('title')
         @yield('title')
     @else
-        <title>{{ config('app.name', 'ContentPress') }}</title>
+        <title>{{ config('app.name', 'ValPress') }}</title>
 @endif
 
 <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com"/>
 
-    {!! contentpressHead() !!}
+    {!! valpressHead() !!}
 </head>
-<body class="{{cp_body_classes()}}">
-    {{do_action('contentpress/after_body_open')}}
+<body class="{{vp_body_classes()}}">
+    {{do_action('valpress/after_body_open')}}
 
 
     {{-- SIDENAV --}}
@@ -79,6 +79,6 @@
 
     @include('partials.site-footer')
 
-    {!! contentpressFooter() !!}
+    {!! valpressFooter() !!}
 </body>
 </html>

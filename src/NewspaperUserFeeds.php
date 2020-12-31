@@ -15,7 +15,7 @@ class NewspaperUserFeeds
     public static function getUserFeeds( int $userID = 0 )
     {
         if ( empty( $userID ) ) {
-            $userID = cp_get_current_user_id();
+            $userID = vp_get_current_user_id();
         }
         return NpUser::find( $userID )->feeds()->get();
     }
@@ -25,7 +25,7 @@ class NewspaperUserFeeds
         $categories = [];
 
         if ( empty( $userID ) ) {
-            $userID = cp_get_current_user_id();
+            $userID = vp_get_current_user_id();
         }
         if ( is_null( $feeds ) ) {
             $feeds = self::getUserFeeds( $userID );

@@ -87,13 +87,13 @@
                                                 $catsTree = [];
                                                 if( ! empty($categories)){
                                                     foreach($categories as $cat){
-                                                        $catsTree[] = '<a href="'.esc_attr(cp_get_category_link($cat)).'">'.$cat->name.'</a>';
+                                                        $catsTree[] = '<a href="'.esc_attr(vp_get_category_link($cat)).'">'.$cat->name.'</a>';
                                                     }
                                                 }
-                                                $catsTree[] = '<a href="'.esc_attr(cp_get_category_link($feed->category)).'">'.$feed->category->name.'</a>';
+                                                $catsTree[] = '<a href="'.esc_attr(vp_get_category_link($feed->category)).'">'.$feed->category->name.'</a>';
                                             @endphp
                                             <span class="d-block text-description">{!! implode('/', $catsTree) !!}</span>
-                                            <span class="d-block" title="{{$feed->url}}">{{cp_ellipsis($feed->url)}}</span>
+                                            <span class="d-block" title="{{$feed->url}}">{{vp_ellipsis($feed->url)}}</span>
                                         </p>
                                         <div>
                                             <a href="{{route('admin.users.feeds.edit', $feed->id)}}" class="mr-2">{{__('np::m.Edit')}}</a>

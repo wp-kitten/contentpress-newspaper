@@ -7,7 +7,7 @@ The template to display pages
 
         <section class="page-content-wrap">
             <div class="container">
-                <div class="{{cp_post_classes()}}">
+                <div class="{{vp_post_classes()}}">
                     <article class="article-single">
                         <div class="entry-content">
                             {!! $page->content !!}
@@ -16,9 +16,9 @@ The template to display pages
                 </div>
 
                 {{-- Render the post Edit link --}}
-                @if(cp_current_user_can('edit_others_posts'))
+                @if(vp_current_user_can('edit_others_posts'))
                     <footer class="entry-footer mt-4 mb-4">
-                        <a href="{{cp_get_post_edit_link($page)}}" class="btn bg-danger text-light">{{__('np::m.Edit')}}</a>
+                        <a href="{{vp_get_post_edit_link($page)}}" class="btn bg-danger text-light">{{__('np::m.Edit')}}</a>
                     </footer>
                 @endif
             </div> <!-- container -->

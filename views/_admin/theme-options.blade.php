@@ -32,7 +32,7 @@
                     <h1>{{__('np::m.Theme Options')}}</h1>
                 </div>
 
-                @if(cp_current_user_can('manage_options'))
+                @if(vp_current_user_can('manage_options'))
                     <ul class="list-unstyled list-inline mb-0">
                         <li>
                             <button type="submit" class="btn btn-primary">{{__('np::m.Save')}}</button>
@@ -44,7 +44,7 @@
 
         @include('admin.partials.notices')
 
-        @if(cp_current_user_can('manage_options'))
+        @if(vp_current_user_can('manage_options'))
 
             {{-- GENERAL OPTIONS --}}
             <div class="row">

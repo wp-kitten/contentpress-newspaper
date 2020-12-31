@@ -50,8 +50,8 @@ class NewspaperHelper
 
     public function getPostImageOrPlaceholder( Post $post, $sizeName = '', $imageClass = 'image-responsive', $imageAttributes = [] )
     {
-        $placeholder = '<img src="' . asset( 'themes/contentpress-newspaper/assets/img/placeholder.png' ) . '" alt="" class="' . $imageClass . '"/>';
-        if ( cp_post_has_featured_image( $post ) ) {
+        $placeholder = '<img src="' . asset( 'themes/valpress-newspaper-theme/assets/img/placeholder.png' ) . '" alt="" class="' . $imageClass . '"/>';
+        if ( vp_post_has_featured_image( $post ) ) {
             $img = ImageHelper::getResponsiveImage( $post, $sizeName, $imageClass, $imageAttributes );
             if ( empty( $img ) ) {
                 return $placeholder;
@@ -63,10 +63,10 @@ class NewspaperHelper
 
     public function getCategoryImageOrPlaceholder( Category $category )
     {
-        if ( $imageUrl = cp_get_category_image_url( $category->id ) ) {
+        if ( $imageUrl = vp_get_category_image_url( $category->id ) ) {
             return $imageUrl;
         }
-        return asset( 'themes/contentpress-newspaper/assets/img/placeholder.png' );
+        return asset( 'themes/valpress-newspaper-theme/assets/img/placeholder.png' );
     }
 
     /**
@@ -108,13 +108,13 @@ class NewspaperHelper
 
     public static function printSocialMetaTags()
     {
-        $post = cp_get_post();
+        $post = vp_get_post();
         if ( $post ) {
-            if ( cp_post_has_featured_image( $post ) ) {
-                $postImageUrl = cp_post_get_featured_image_url( $post->id );
+            if ( vp_post_has_featured_image( $post ) ) {
+                $postImageUrl = vp_post_get_featured_image_url( $post->id );
             }
             else {
-                $postImageUrl = asset( 'themes/contentpress-newspaper/assets/img/placeholder.png' );
+                $postImageUrl = asset( 'themes/valpress-newspaper-theme/assets/img/placeholder.png' );
             }
             $settings = new Settings();
             ?>
@@ -143,13 +143,13 @@ class NewspaperHelper
 
     public static function getShareUrls( $post )
     {
-        $postPermalink = cp_get_permalink( $post );
+        $postPermalink = vp_get_permalink( $post );
         $postTitle = urlencode( $post->title );
-        if ( cp_post_has_featured_image( $post ) ) {
-            $postImageUrl = cp_post_get_featured_image_url( $post->id );
+        if ( vp_post_has_featured_image( $post ) ) {
+            $postImageUrl = vp_post_get_featured_image_url( $post->id );
         }
         else {
-            $postImageUrl = asset( 'themes/contentpress-newspaper/assets/img/placeholder.png' );
+            $postImageUrl = asset( 'themes/valpress-newspaper-theme/assets/img/placeholder.png' );
         }
         $fbUrl = 'https://www.facebook.com/sharer.php?u=' . urlencode( $postPermalink );
         $twitterUrl = 'https://twitter.com/share?url=' . urlencode( $postPermalink ) . '&text=' . $postTitle;

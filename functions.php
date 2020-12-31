@@ -23,18 +23,18 @@ require_once( NP_THEME_DIR_PATH . '/models/User.php' );
 require_once( NP_THEME_DIR_PATH . '/theme-hooks.php' );
 
 //#! If w = 0, then size will be ignored
-cp_add_image_size( 'w60', [ 'w' => 60 ] );
-cp_add_image_size( 'w150', [ 'w' => 150 ] );
-cp_add_image_size( 'w240', [ 'w' => 240 ] );
-cp_add_image_size( 'w350', [ 'w' => 350 ] );
-cp_add_image_size( 'w510', [ 'w' => 510 ] );
+vp_add_image_size( 'w60', [ 'w' => 60 ] );
+vp_add_image_size( 'w150', [ 'w' => 150 ] );
+vp_add_image_size( 'w240', [ 'w' => 240 ] );
+vp_add_image_size( 'w350', [ 'w' => 350 ] );
+vp_add_image_size( 'w510', [ 'w' => 510 ] );
 
 /**
  * Submit a comment
  * @param Controller $controller
  * @param int $postID
  *
- * @hooked contentpress/submit_comment
+ * @hooked valpress/submit_comment
  *
  * @return RedirectResponse
  */
@@ -49,7 +49,7 @@ function np_theme_submit_comment( Controller $controller, int $postID )
     }
 
     //#! Make sure the comments are open for this post
-    if ( !cp_get_post_meta( $post, '_comments_enabled' ) ) {
+    if ( !vp_get_post_meta( $post, '_comments_enabled' ) ) {
         return redirect()->back()->with( 'message', [
             'class' => 'danger',
             'text' => __( 'fr::m.Sorry, the comments are closed for this post.' ),
@@ -61,7 +61,7 @@ function np_theme_submit_comment( Controller $controller, int $postID )
     $user = $controller->current_user();
 
     //#! Make sure the current user is allowed to comment
-    if ( !cp_is_user_logged_in() && !$settings->getSetting( 'anyone_can_comment' ) ) {
+    if ( !vp_is_user_logged_in() && !$settings->getSetting( 'anyone_can_comment' ) ) {
         return redirect()->back()->with( 'message', [
             'class' => 'danger',
             'text' => __( 'fr::m.Sorry, you are not allowed to comment for this post.' ),
@@ -75,7 +75,7 @@ function np_theme_submit_comment( Controller $controller, int $postID )
 
     $commentApproved = false;
 
-    if ( $user && cp_current_user_can( 'moderate_comments' ) ) {
+    if ( $user && vp_current_user_can( 'moderate_comments' ) ) {
         $commentStatusID = CommentStatuses::where( 'name', 'approve' )->first()->id;
         $commentApproved = true;
     }
@@ -162,11 +162,11 @@ function np_theme_submit_comment( Controller $controller, int $postID )
  */
 function np_menuRenderAuthLinks()
 {
-    $links = cp_login_logout_links();
-    if ( cp_is_user_logged_in() ) {
-        $user = cp_get_current_user();
+    $links = vp_login_logout_links();
+    if ( vp_is_user_logged_in() ) {
+        $user = vp_get_current_user();
         //#! Contributor & administrators
-        if ( cp_current_user_can( 'delete_others_posts' ) ) {
+        if ( vp_current_user_can( 'delete_others_posts' ) ) {
             ?>
             <a href="<?php esc_attr_e( route( 'admin.dashboard' ) ); ?>"><?php esc_html_e( __( 'np::m.Dashboard' ) ); ?></a>
             <?php

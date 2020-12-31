@@ -28,8 +28,8 @@
                     <header class="hentry-header">
                         {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive', ['alt' => $post->title]) !!}
                         <h4 class="hentry-title">
-                            <a href={{cp_get_permalink($post)}} class="text-info">
-                                {!! cp_ellipsis($post->title, 50) !!}
+                            <a href={{vp_get_permalink($post)}} class="text-info">
+                                {!! vp_ellipsis($post->title, 50) !!}
                             </a>
                         </h4>
                     </header>

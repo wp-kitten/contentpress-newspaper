@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 /**
  * Include theme's views into the global scope
  */
-add_filter( 'contentpress/register_view_paths', function ( $paths = [] ) {
+add_filter( 'valpress/register_view_paths', function ( $paths = [] ) {
     $paths[] = path_combine( NP_THEME_DIR_PATH, 'views' );
     return $paths;
 }, 80 );
@@ -28,8 +28,8 @@ add_filter( 'contentpress/register_view_paths', function ( $paths = [] ) {
 /**
  * Register the path to the translation file that will be used depending on the current locale
  */
-add_action( 'contentpress/app/loaded', function () {
-    cp_register_language_file( 'np', path_combine(
+add_action( 'valpress/app/loaded', function () {
+    vp_register_language_file( 'np', path_combine(
         NP_THEME_DIR_PATH,
         'lang'
     ) );
@@ -38,7 +38,7 @@ add_action( 'contentpress/app/loaded', function () {
 /*
  * Load|output resources in the head tag
  */
-add_action( 'contentpress/site/head', function () {
+add_action( 'valpress/site/head', function () {
 
     $theme = new Theme( NP_THEME_DIR_NAME );
 
@@ -82,7 +82,7 @@ add_action( 'contentpress/site/head', function () {
 /*
  * Load|output resources in the site footer
  */
-add_action( 'contentpress/site/footer', function () {
+add_action( 'valpress/site/footer', function () {
     $theme = new Theme( NP_THEME_DIR_NAME );
 
     //#! [DEBUG] Prevent the browser from caching resources
@@ -98,14 +98,14 @@ add_action( 'contentpress/site/footer', function () {
 /*
  * Do something when plugins have loaded
  */
-add_action( 'contentpress/plugins/loaded', function () {
+add_action( 'valpress/plugins/loaded', function () {
     //...
 } );
 
 /**
  * Output some content right after the <body> tag
  */
-add_action( 'contentpress/after_body_open', function () {
+add_action( 'valpress/after_body_open', function () {
     ?>
     <div class="loader-mask">
         <div class="load-container">
@@ -119,7 +119,7 @@ add_action( 'contentpress/after_body_open', function () {
 /**
  * Filter classes applied to the <body> tag
  */
-add_filter( 'contentpress/body-class', function ( $classes = [] ) {
+add_filter( 'valpress/body-class', function ( $classes = [] ) {
     //...
     $classes[] = 'feed-reader';
     return $classes;
@@ -129,16 +129,16 @@ add_filter( 'contentpress/body-class', function ( $classes = [] ) {
 /**
  * Add custom menu items to the main menu
  */
-add_action( 'contentpress/menu::main-menu/before', function ( Menu $menu ) {
+add_action( 'valpress/menu::main-menu/before', function ( Menu $menu ) {
 //    echo '<div class="topnav bg-dark text-light">';
     $activeClass = ( Route::is( 'app.home' ) ? 'active' : '' );
     echo '<a href="' . route( 'app.home' ) . '" class="menu-item ' . $activeClass . '">' . esc_attr( __( 'np::m.Home' ) ) . '</a>';
 } );
-add_action( 'contentpress/menu::main-menu/after', function ( Menu $menu ) {
+add_action( 'valpress/menu::main-menu/after', function ( Menu $menu ) {
     echo '<a href="#" class="icon btn-toggle-nav js-toggle-menu" title="' . esc_attr( __( 'np::m.Toggle menu' ) ) . '">&#9776;</a>';
 //    echo '</div>';
 } );
-add_action( 'contentpress/menu::main-menu', function ( Menu $menu ) {
+add_action( 'valpress/menu::main-menu', function ( Menu $menu ) {
 
     $nh = new NewspaperHelper();
 
@@ -159,7 +159,7 @@ add_action( 'contentpress/menu::main-menu', function ( Menu $menu ) {
             <div class="submenu-content">
                 <?php
                 foreach ( $categories as $category ) {
-                    $url = cp_get_category_link( $category );
+                    $url = vp_get_category_link( $category );
                     $activeClass = ( Str::containsAll( url()->current(), [ $url ] ) ? 'active' : '' );
                     echo '<a href="' . esc_attr( $url ) . '" class="menu-item ' . esc_attr( $activeClass ) . '">' . $category->name . '</a>';
                 }
@@ -170,7 +170,7 @@ add_action( 'contentpress/menu::main-menu', function ( Menu $menu ) {
     }
 
     //#! Inject link to user's custom home if the feature is enabled
-    if ( cp_is_user_logged_in() && np_userCustomHomeEnabled() ) {
+    if ( vp_is_user_logged_in() && np_userCustomHomeEnabled() ) {
         $activeClass = ( Str::containsAll( url()->current(), [ route( 'app.my_feeds' ) ] ) ? 'active' : '' );
         $categories = NewspaperUserFeeds::getUserCategories();
         ?>
@@ -200,9 +200,9 @@ add_action( 'contentpress/menu::main-menu', function ( Menu $menu ) {
 } );
 //</editor-fold desc=":: MAIN MENU ::">
 
-add_action( 'contentpress/submit_comment', 'np_theme_submit_comment', 10, 2 );
+add_action( 'valpress/submit_comment', 'np_theme_submit_comment', 10, 2 );
 
-add_action( 'contentpress/post/footer', function ( Post $post ) {
+add_action( 'valpress/post/footer', function ( Post $post ) {
     //#! Render the link back & the video if any
     if ( 'post' == $post->post_type()->first()->name ) {
         //#! Render the video if any
@@ -234,7 +234,7 @@ add_action( 'contentpress/post/footer', function ( Post $post ) {
                     wp_kses_e(
                         sprintf(
                             '<a href="%s" class="tag-link inline ml-15">%s</a>',
-                            esc_attr( cp_get_tag_link( $tag ) ),
+                            esc_attr( vp_get_tag_link( $tag ) ),
                             esc_html( $tag->name )
                         ),
                         [
@@ -275,7 +275,7 @@ add_action( 'contentpress/post/footer', function ( Post $post ) {
         }
 
         // {{-- Render the post navigation links --}}
-        cp_posts_navigation( $post, '', true );
+        vp_posts_navigation( $post, '', true );
 
         $shareUrls = []; //NewspaperHelper::getShareUrls( $post );
         if ( !empty( $shareUrls ) ) {
@@ -322,7 +322,7 @@ add_action( 'contentpress/post/footer', function ( Post $post ) {
 /*
  * Install and activate(if not already installed) the theme's dependent plugins
  */
-add_action( 'contentpress/plugins/loaded', 'np_activate_theme_plugins', 20 );
+add_action( 'valpress/plugins/loaded', 'np_activate_theme_plugins', 20 );
 function np_activate_theme_plugins()
 {
     $pluginsManager = PluginsManager::getInstance();
@@ -386,8 +386,8 @@ function np_activate_theme_plugins()
  * [ADMIN]
  * Add the Theme options menu item under Themes in the admin menu
  */
-add_action( 'contentpress/admin/sidebar/menu/themes', function () {
-    if ( cp_current_user_can( 'manage_options' ) ) {
+add_action( 'valpress/admin/sidebar/menu/themes', function () {
+    if ( vp_current_user_can( 'manage_options' ) ) {
         ?>
         <li>
             <a class="treeview-item <?php App\Helpers\MenuHelper::activateSubmenuItem( 'admin.themes.newspaper-options' ); ?>"
@@ -403,18 +403,18 @@ add_action( 'contentpress/admin/sidebar/menu/themes', function () {
  * [ADMIN]
  * Enqueue theme's resources in the admin area
  */
-add_action( 'contentpress/admin/head', function () {
+add_action( 'valpress/admin/head', function () {
     //#! Make sure we're only loading in our page
     if ( request()->is( 'admin/themes/newspaper-options*' ) ) {
-        ScriptsManager::enqueueStylesheet( 'newspaper-theme-options-styles', cp_theme_url( NP_THEME_DIR_NAME, 'assets/admin/styles.css' ) );
-        ScriptsManager::enqueueFooterScript( 'newspaper-theme-options-js', cp_theme_url( NP_THEME_DIR_NAME, 'assets/admin/theme-options.js' ) );
+        ScriptsManager::enqueueStylesheet( 'newspaper-theme-options-styles', vp_theme_url( NP_THEME_DIR_NAME, 'assets/admin/styles.css' ) );
+        ScriptsManager::enqueueFooterScript( 'newspaper-theme-options-js', vp_theme_url( NP_THEME_DIR_NAME, 'assets/admin/theme-options.js' ) );
     }
 }, 80 );
 
 /**
  * Set theme's default options upon activation
  */
-add_action( 'contentpress/switch_theme', function ( $currentThemeName, $oldThemeName = '' ) {
+add_action( 'valpress/switch_theme', function ( $currentThemeName, $oldThemeName = '' ) {
     if ( $currentThemeName == NP_THEME_DIR_NAME ) {
         $options = new Options();
         $options->addOption( NewspaperAdminController::THEME_OPTIONS_OPT_NAME, NewspaperAdminController::getDefaultThemeOptions() );
@@ -424,7 +424,7 @@ add_action( 'contentpress/switch_theme', function ( $currentThemeName, $oldTheme
 /*
  * Adds the menu entry to admin sidebar > users that allows them to manage their feeds
  */
-add_action( 'contentpress/admin/sidebar/menu/users', function () {
+add_action( 'valpress/admin/sidebar/menu/users', function () {
     if ( defined( 'NPFR_PLUGIN_DIR_NAME' ) ) {
         $settings = new Settings();
         if ( $settings->getSetting( 'user_registration_open' ) ) {

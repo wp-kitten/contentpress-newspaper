@@ -32,7 +32,7 @@ class NewspaperThemeController extends SiteController
 
     public function maintenance()
     {
-        if ( cp_is_under_maintenance() ) {
+        if ( vp_is_under_maintenance() ) {
             return view( 'maintenance' );
         }
         return view( '404' );
@@ -61,7 +61,7 @@ class NewspaperThemeController extends SiteController
         //#! Get the current language ID
         $defaultLanguageID = CPML::getDefaultLanguageID();
         //#! Get the selected language in frontend
-        $frontendLanguageID = cp_get_frontend_user_language_id();
+        $frontendLanguageID = vp_get_frontend_user_language_id();
 
         $category = Category::where( 'slug', $slug )->where( 'language_id', $frontendLanguageID )->first();
 
@@ -78,7 +78,7 @@ class NewspaperThemeController extends SiteController
                         if ( !$category ) {
                             return $this->_not_found();
                         }
-                        return redirect( cp_get_category_link( $category ) );
+                        return redirect( vp_get_category_link( $category ) );
                     }
 
                     //#! Other language -> default language ( RO -> EN ) //
@@ -87,7 +87,7 @@ class NewspaperThemeController extends SiteController
                         if ( !$category ) {
                             return $this->_not_found();
                         }
-                        return redirect( cp_get_category_link( $category ) );
+                        return redirect( vp_get_category_link( $category ) );
                     }
 
                     //#! other language -> other language ( ES -> RO )
@@ -95,7 +95,7 @@ class NewspaperThemeController extends SiteController
                     if ( !$category ) {
                         return $this->_not_found();
                     }
-                    return redirect( cp_get_category_link( $category ) );
+                    return redirect( vp_get_category_link( $category ) );
                 }
             }
             else {
@@ -134,7 +134,7 @@ class NewspaperThemeController extends SiteController
         //#! Get the current language ID
         $defaultLanguageID = CPML::getDefaultLanguageID();
         //#! Get the selected language in frontend
-        $frontendLanguageID = cp_get_frontend_user_language_id();
+        $frontendLanguageID = vp_get_frontend_user_language_id();
 
         $tag = Tag::where( 'slug', $slug )->where( 'language_id', $frontendLanguageID )->first();
 
@@ -151,7 +151,7 @@ class NewspaperThemeController extends SiteController
                         if ( !$tag ) {
                             return $this->_not_found();
                         }
-                        return redirect( cp_get_tag_link( $tag ) );
+                        return redirect( vp_get_tag_link( $tag ) );
                     }
 
                     //#! Other language -> default language ( RO -> EN ) //
@@ -160,7 +160,7 @@ class NewspaperThemeController extends SiteController
                         if ( !$tag ) {
                             return $this->_not_found();
                         }
-                        return redirect( cp_get_tag_link( $tag ) );
+                        return redirect( vp_get_tag_link( $tag ) );
                     }
 
                     //#! other language -> other language ( ES -> RO )
@@ -168,7 +168,7 @@ class NewspaperThemeController extends SiteController
                     if ( !$tag ) {
                         return $this->_not_found();
                     }
-                    return redirect( cp_get_tag_link( $tag ) );
+                    return redirect( vp_get_tag_link( $tag ) );
                 }
             }
             else {
@@ -189,7 +189,7 @@ class NewspaperThemeController extends SiteController
         //#! Make sure the post is published if the current user is not allowed to "edit_private_posts"
         $_postStatuses = PostStatus::all();
         $postStatuses = [];
-        if ( cp_current_user_can( 'edit_private_posts' ) ) {
+        if ( vp_current_user_can( 'edit_private_posts' ) ) {
             $postStatuses = Arr::pluck( $_postStatuses, 'id' );
         }
         else {
@@ -225,7 +225,7 @@ class NewspaperThemeController extends SiteController
     public function post_tags()
     {
         //#! Get the selected language in frontend
-        $languageID = cp_get_frontend_user_language_id();
+        $languageID = vp_get_frontend_user_language_id();
         if ( !$languageID ) {
             //#! Get the current language ID
             $languageID = CPML::getDefaultLanguageID();
@@ -273,7 +273,7 @@ class NewspaperThemeController extends SiteController
             $order = ( in_array( $order, [ 'asc', 'desc' ] ) ? $order : 'desc' );
         }
 
-        $posts = Post::where( 'language_id', cp_get_frontend_user_language_id() )
+        $posts = Post::where( 'language_id', vp_get_frontend_user_language_id() )
             ->where( 'post_status_id', PostStatus::where( 'name', 'publish' )->first()->id )
             ->whereIn( 'post_type_id', $postTypesArray )
             ->where( function ( $query ) use ( $s ) {
@@ -299,7 +299,7 @@ class NewspaperThemeController extends SiteController
 
     public function __submitComment( $post_id )
     {
-        do_action( 'contentpress/submit_comment', $this, $post_id );
+        do_action( 'valpress/submit_comment', $this, $post_id );
         return redirect()->back();
     }
 
@@ -308,7 +308,7 @@ class NewspaperThemeController extends SiteController
      */
     public function userCustomHome()
     {
-        $userID = cp_get_current_user_id();
+        $userID = vp_get_current_user_id();
         $categories = NewspaperUserFeeds::getUserCategories( $userID );
 
         return view( 'user-custom-home/home' )->with( [
@@ -323,7 +323,7 @@ class NewspaperThemeController extends SiteController
             return view( '404' );
         }
         $category = Category::where( 'slug', $category_slug )
-            ->where( 'language_id', cp_get_frontend_user_language_id() )
+            ->where( 'language_id', vp_get_frontend_user_language_id() )
             ->where( 'post_type_id', PostType::where( 'name', 'post' )->first()->id )
             ->first();
 
@@ -342,7 +342,7 @@ class NewspaperThemeController extends SiteController
         return view( 'user-custom-home/category' )->with( [
             'category' => $category,
             'parent_category' => $parentCategory,
-            'feeds' => Feed::where( 'user_id', cp_get_current_user_id() )->where( 'category_id', $category->id )->get(),
+            'feeds' => Feed::where( 'user_id', vp_get_current_user_id() )->where( 'category_id', $category->id )->get(),
         ] );
     }
 

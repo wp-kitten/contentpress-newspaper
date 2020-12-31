@@ -5,7 +5,7 @@
     $latestNews = $cacheClass->get($cacheKey, '');
     if( empty( $latestNews ) )
     {
-        $latestNews = App\Models\Post::where( 'language_id', cp_get_frontend_user_language_id() )
+        $latestNews = App\Models\Post::where( 'language_id', vp_get_frontend_user_language_id() )
                     ->where( 'post_status_id', App\Models\PostStatus::where( 'name', 'publish' )->first()->id )
                     ->where( 'post_type_id', App\Models\PostType::where('name', 'post')->first()->id )
                     //#! Only include results from within the last month
@@ -25,7 +25,7 @@
         @if($latestNews && $latestNews->count())
             @foreach($latestNews as $entry)
                 <li>
-                    <a href="{{cp_get_permalink($entry)}}">
+                    <a href="{{vp_get_permalink($entry)}}">
                         {!! wp_kses_post($entry->title) !!}
                     </a>
                 </li>

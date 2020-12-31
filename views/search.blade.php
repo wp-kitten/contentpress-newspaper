@@ -9,7 +9,7 @@
 @endphp
 
 @section('title')
-    <title>{{__('np::m.Search for: :query_string', [ 'query_string' => cp_get_search_query()]) }}</title>
+    <title>{{__('np::m.Search for: :query_string', [ 'query_string' => vp_get_search_query()]) }}</title>
 @endsection
 
 
@@ -44,13 +44,13 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-8">
                                         <div class="search-form-wrap pl-3">
-                                            {!! cp_search_form() !!}
+                                            {!! vp_search_form() !!}
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-4 text-right">
                                         <div class="orderby-wrap mr-3">
                                             <form id="form-filter-search" method="get" action="<?php esc_attr_e( route( 'blog.search' ) ); ?>">
-                                                <input name="s" value="{{cp_get_search_query()}}" class="d-none"/>
+                                                <input name="s" value="{{vp_get_search_query()}}" class="d-none"/>
                                                 <select name="order" id="js-sort-results" data-form-id="form-filter-search">
                                                     @php $selected = ('desc' == $order ? 'selected' : ''); @endphp
                                                     <option value="desc" {!! $selected !!}>{{__('np::m.Sort by Newest')}}</option>
@@ -75,14 +75,14 @@
                                     <header class="hentry-header">
                                         {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive', [ 'alt' => $post->title ]) !!}
                                         <div class="hentry-category bg-danger">
-                                            <a href="{{cp_get_category_link($post->firstCategory())}}" class="text-light">
+                                            <a href="{{vp_get_category_link($post->firstCategory())}}" class="text-light">
                                                 {!! $post->firstCategory()->name !!}
                                             </a>
                                         </div>
                                     </header>
                                     <section class="hentry-content">
                                         <h4 class="hentry-title">
-                                            <a href="{{cp_get_permalink($post)}}" class="text-info">
+                                            <a href="{{vp_get_permalink($post)}}" class="text-info">
                                                 {!! wp_kses_post($post->title) !!}
                                             </a>
                                         </h4>

@@ -55,8 +55,8 @@
                         <div class="col-sm-12 col-md-8">
                             <section class="hentry-content">
                                 <h4 class="hentry-title @if(!wp_is_mobile()) title-small font-default @endif">
-                                    <a href={{cp_get_permalink($post)}} class="text-info">
-                                        {!! cp_ellipsis($post->title, 70) !!}
+                                    <a href={{vp_get_permalink($post)}} class="text-info">
+                                        {!! vp_ellipsis($post->title, 70) !!}
                                     </a>
                                 </h4>
                             </section>
@@ -79,8 +79,8 @@
                         <div class="col-sm-12 col-md-8">
                             <section class="hentry-content">
                                 <h4 class="hentry-title @if(!wp_is_mobile()) title-small font-default @endif">
-                                    <a href={{cp_get_permalink($post)}} class="text-info">
-                                        {!! cp_ellipsis($post->title, 70) !!}
+                                    <a href={{vp_get_permalink($post)}} class="text-info">
+                                        {!! vp_ellipsis($post->title, 70) !!}
                                     </a>
                                 </h4>
                             </section>

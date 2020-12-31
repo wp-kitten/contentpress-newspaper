@@ -52,13 +52,13 @@
 
                         <!-- POST META -->
                         <section class="entry-meta mt-2 mb-2">
-                            <span><i class="fa fa-clock-o"></i> {{cp_the_date($post)}}</span>
+                            <span><i class="fa fa-clock-o"></i> {{vp_the_date($post)}}</span>
                             <span><i class="fa fa-user"></i> {{$post->user->display_name}}</span>
                             @if($post->categories()->count())
                                 <span>
                                 <i class="fa fa-folder-open"></i>
                                 @foreach($post->categories()->get() as $category)
-                                    <a href="{{cp_get_category_link($category)}}" class="category-link">{!! $category->name !!}</a>
+                                    <a href="{{vp_get_category_link($category)}}" class="category-link">{!! $category->name !!}</a>
                                 @endforeach
                             </span>
                             @endif
@@ -71,13 +71,13 @@
 
                         {{-- Render tags & social links --}}
                         <footer class="entry-footer">
-                            {!! do_action('contentpress/post/footer', $post) !!}
+                            {!! do_action('valpress/post/footer', $post) !!}
                         </footer>
 
                         {{-- Render the post Edit link --}}
-                        @if(cp_current_user_can('edit_others_posts'))
+                        @if(vp_current_user_can('edit_others_posts'))
                             <footer class="entry-footer mt-4 mb-4">
-                                <a href="{{cp_get_post_edit_link($post)}}" class="btn bg-danger text-light">{{__('np::m.Edit')}}</a>
+                                <a href="{{vp_get_post_edit_link($post)}}" class="btn bg-danger text-light">{{__('np::m.Edit')}}</a>
                             </footer>
                         @endif
 

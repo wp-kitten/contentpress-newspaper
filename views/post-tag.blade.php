@@ -48,14 +48,14 @@
                                                 <header class="hentry-header">
                                                     {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive', [ 'alt' => $post->title ]) !!}
                                                     <div class="hentry-category bg-danger">
-                                                        <a href="{{cp_get_category_link($post->firstCategory())}}" class="text-light">
+                                                        <a href="{{vp_get_category_link($post->firstCategory())}}" class="text-light">
                                                             {!! $post->firstCategory()->name !!}
                                                         </a>
                                                     </div>
                                                 </header>
                                                 <section class="hentry-content">
                                                     <h4 class="hentry-title">
-                                                        <a href="{{cp_get_permalink($post)}}" class="text-info">
+                                                        <a href="{{vp_get_permalink($post)}}" class="text-info">
                                                             {!! wp_kses_post($post->title) !!}
                                                         </a>
                                                     </h4>

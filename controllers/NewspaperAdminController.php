@@ -125,7 +125,7 @@ class NewspaperAdminController extends AdminControllerBase
     public function userFeedsView()
     {
         return view( '_admin.user-feeds' )->with( [
-            'feeds' => Feed::where( 'user_id', cp_get_current_user_id() )->paginate( $this->settings->getSetting( 'posts_per_page' ) ),
+            'feeds' => Feed::where( 'user_id', vp_get_current_user_id() )->paginate( $this->settings->getSetting( 'posts_per_page' ) ),
         ] );
     }
 
@@ -142,7 +142,7 @@ class NewspaperAdminController extends AdminControllerBase
         $websiteUrl = $this->request->get( 'website_url' );
         $private = $this->request->get( 'feed_private', false );
         $isFeedUrl = $this->request->get( 'is_feed', false );
-        $userID = cp_get_current_user_id();
+        $userID = vp_get_current_user_id();
 
         $feedUrl = $this->__validateUrl( $websiteUrl );
         if ( !$feedUrl ) {
@@ -239,7 +239,7 @@ class NewspaperAdminController extends AdminControllerBase
             ] );
         }
 
-        $userID = cp_get_current_user_id();
+        $userID = vp_get_current_user_id();
         $defaultLanguageID = CPML::getDefaultLanguageID();
 
         $feed = Feed::where( 'id', $id )->where( 'user_id', $userID )->first();
@@ -307,7 +307,7 @@ class NewspaperAdminController extends AdminControllerBase
         $private = false;
         $category = $feed->category()->first();
         $defaultLanguageID = CPML::getDefaultLanguageID();
-        $userID = cp_get_current_user_id();
+        $userID = vp_get_current_user_id();
 
         if ( $category ) {
             $cm = CategoryMeta::where( 'meta_name', 'np_private' )
@@ -339,7 +339,7 @@ class NewspaperAdminController extends AdminControllerBase
             'feed_category' => 'required|string|max:50',
         ] );
         $private = $this->request->get( 'feed_private', false );
-        $userID = cp_get_current_user_id();
+        $userID = vp_get_current_user_id();
 
         $url = $this->__validateUrl( $this->request->get( 'feed_url' ) );
         if ( !$url ) {
@@ -442,7 +442,7 @@ class NewspaperAdminController extends AdminControllerBase
 
         $defaultLanguageID = CPML::getDefaultLanguageID();
         $postTypeID = PostType::where( 'name', 'post' )->first()->id;
-        $userID = cp_get_current_user_id();
+        $userID = vp_get_current_user_id();
 
         //#! Check to see whether the category exists
         $subcat = Category::where( 'name', strtolower( $categoryName ) )

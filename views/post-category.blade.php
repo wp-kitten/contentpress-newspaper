@@ -21,7 +21,7 @@
                     @if(! empty($subcategories))
                         @forelse($subcategories as $cat)
                             <li>
-                                <a class="category-name text-info" href="{{cp_get_category_link($cat)}}">{!! $cat->name !!}</a>
+                                <a class="category-name text-info" href="{{vp_get_category_link($cat)}}">{!! $cat->name !!}</a>
                                 <span class="num-posts text-dark">{{$newspaperHelper->categoryTreeCountPosts($cat)}}</span>
                             </li>
                         @empty
@@ -55,10 +55,10 @@
                                 $catsTree = [];
                                 if( ! empty($parentCategories)){
                                     foreach($parentCategories as $cat){
-                                        $catsTree[] = '<a href="'.esc_attr(cp_get_category_link($cat)).'">'.$cat->name.'</a>';
+                                        $catsTree[] = '<a href="'.esc_attr(vp_get_category_link($cat)).'">'.$cat->name.'</a>';
                                     }
                                 }
-                                $catsTree[] = '<a href="'.esc_attr(cp_get_category_link($category)).'">'. $category->name.'</a>';
+                                $catsTree[] = '<a href="'.esc_attr(vp_get_category_link($category)).'">'. $category->name.'</a>';
                             @endphp
                             @if(count($catsTree) > 1)
                                 <span class="d-block text-description">{!! implode('/', $catsTree) !!}</span>
@@ -81,7 +81,7 @@
                                                 <header class="hentry-header">
                                                     {!! $newspaperHelper->getPostImageOrPlaceholder($post, '', 'image-responsive', ['alt' => $post->title]) !!}
                                                     <div class="hentry-category bg-danger">
-                                                        <a href="{{cp_get_category_link($post->firstCategory())}}" class="text-light">
+                                                        <a href="{{vp_get_category_link($post->firstCategory())}}" class="text-light">
                                                             {!! $post->firstCategory()->name !!}
                                                         </a>
                                                     </div>
@@ -89,7 +89,7 @@
 
                                                 <section class="hentry-content">
                                                     <h4 class="hentry-title">
-                                                        <a href="{{cp_get_permalink($post)}}" class="text-info">
+                                                        <a href="{{vp_get_permalink($post)}}" class="text-info">
                                                             {!! wp_kses_post($post->title) !!}
                                                         </a>
                                                     </h4>
@@ -122,7 +122,7 @@
                                     @if(! empty($subcategories))
                                         @forelse($subcategories as $cat)
                                             <li>
-                                                <a class="category-name text-info text-capitalize" href="{{cp_get_category_link($cat)}}">{!! $cat->name !!}</a>
+                                                <a class="category-name text-info text-capitalize" href="{{vp_get_category_link($cat)}}">{!! $cat->name !!}</a>
                                                 <span class="num-posts text-dark">{{$newspaperHelper->categoryTreeCountPosts($cat)}}</span>
                                             </li>
                                         @empty

@@ -58,7 +58,7 @@ class NewspaperAjaxController extends Controller
         $perPage = 30;
 
         /**@var Cache $cacheClass */
-        $cacheClass = app( 'cp.cache' );
+        $cacheClass = app( 'vp.cache' );
         $cacheKey = 'blog-pagination-' . $page . '-' . md5( serialize( $excludeIDS ) );
 
         $cache = $cacheClass->get( $cacheKey, false );

@@ -14,7 +14,7 @@
     ],
     "contributors": [],
     "page_url": "https://github.com/wp-kitten/valpress-newspaper-theme",
-    "update_url": "http://api.valpress.news/api/theme/info/valpress-newspaper-theme",
+    "update_url": "http://api.valpress.net/api/theme/info/valpress-newspaper-theme",
     "description": "Syndication theme for ValPress",
     "thumbnail": "thumb.png"
 }

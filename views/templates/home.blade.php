@@ -14,7 +14,7 @@
     $sections = $newspaperHelper->getThemeOption('homepage', []);
 
     //#! Cache
-    $cache = app('cp.cache');
+    $cache = app('vp.cache');
 @endphp
 
 

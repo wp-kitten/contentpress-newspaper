@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\CategoryMeta;
 use App\Models\Feed;
-use App\Helpers\CPML;
+use App\Helpers\VPML;
 use App\Helpers\Util;
 use App\Http\Controllers\Admin\AdminControllerBase;
 use App\Newspaper\NewspaperHelper;
@@ -240,7 +240,7 @@ class NewspaperAdminController extends AdminControllerBase
         }
 
         $userID = vp_get_current_user_id();
-        $defaultLanguageID = CPML::getDefaultLanguageID();
+        $defaultLanguageID = VPML::getDefaultLanguageID();
 
         $feed = Feed::where( 'id', $id )->where( 'user_id', $userID )->first();
         if ( !$feed ) {
@@ -306,7 +306,7 @@ class NewspaperAdminController extends AdminControllerBase
         $feed = Feed::findOrFail( $id );
         $private = false;
         $category = $feed->category()->first();
-        $defaultLanguageID = CPML::getDefaultLanguageID();
+        $defaultLanguageID = VPML::getDefaultLanguageID();
         $userID = vp_get_current_user_id();
 
         if ( $category ) {
@@ -368,7 +368,7 @@ class NewspaperAdminController extends AdminControllerBase
             ] );
         }
 
-        $defaultLanguageID = CPML::getDefaultLanguageID();
+        $defaultLanguageID = VPML::getDefaultLanguageID();
         $postTypeID = PostType::where( 'name', 'post' )->first()->id;
 
         $categoryName = mb_convert_encoding( $this->request->get( 'feed_category' ), 'utf-8', 'auto' );
@@ -440,7 +440,7 @@ class NewspaperAdminController extends AdminControllerBase
             return __( 'np::m.An error occurred and the category could not be created.' );
         }
 
-        $defaultLanguageID = CPML::getDefaultLanguageID();
+        $defaultLanguageID = VPML::getDefaultLanguageID();
         $postTypeID = PostType::where( 'name', 'post' )->first()->id;
         $userID = vp_get_current_user_id();
 

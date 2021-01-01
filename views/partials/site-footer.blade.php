@@ -45,7 +45,7 @@
                         <small>{!! __('np::m.Copyright &copy;2020 ValPress') !!}</small>
 
                         @php
-                            $cache = app('cp.cache');
+                            $cache = app('vp.cache');
                             $numPosts = $cache->get('np_num_posts');
                             if(! $numPosts){
                                 $nh = new \App\Newspaper\NewspaperHelper();

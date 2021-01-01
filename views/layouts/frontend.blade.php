@@ -1,7 +1,7 @@
 <!doctype html>
 @inject('newspaperHelper',App\Newspaper\NewspaperHelper)
 @php
-    $currentLanguageCode = App\Helpers\CPML::getFrontendLanguageCode();
+    $currentLanguageCode = App\Helpers\VPML::getFrontendLanguageCode();
     app()->setLocale($currentLanguageCode);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

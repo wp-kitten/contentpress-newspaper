@@ -449,7 +449,7 @@ add_action( 'valpress/admin/sidebar/menu/users', function () {
  * -- updates the option storing the number of posts
  */
 add_action( 'newspaper-feed-reader/import-complete', function () {
-    $cache = app( 'cp.cache' );
+    $cache = app( 'vp.cache' );
     if ( $cache ) {
         $nh = new NewspaperHelper();
         $cache->set( 'np_num_posts', $nh->getCountNumPosts() );

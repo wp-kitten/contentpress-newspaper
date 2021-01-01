@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Feed;
-use App\Helpers\CPML;
+use App\Helpers\VPML;
 use App\Newspaper\NewspaperUserFeeds;
 use App\Models\Post;
 use App\Models\PostStatus;
@@ -46,7 +46,7 @@ class NewspaperThemeController extends SiteController
     public function lang( $code )
     {
         //#! Ensure this is a valid language code
-        CPML::setFrontendLanguageCode( $code );
+        VPML::setFrontendLanguageCode( $code );
 
         return redirect()->back();
     }
@@ -59,7 +59,7 @@ class NewspaperThemeController extends SiteController
     public function category( string $slug )
     {
         //#! Get the current language ID
-        $defaultLanguageID = CPML::getDefaultLanguageID();
+        $defaultLanguageID = VPML::getDefaultLanguageID();
         //#! Get the selected language in frontend
         $frontendLanguageID = vp_get_frontend_user_language_id();
 
@@ -132,7 +132,7 @@ class NewspaperThemeController extends SiteController
     public function tag( $slug )
     {
         //#! Get the current language ID
-        $defaultLanguageID = CPML::getDefaultLanguageID();
+        $defaultLanguageID = VPML::getDefaultLanguageID();
         //#! Get the selected language in frontend
         $frontendLanguageID = vp_get_frontend_user_language_id();
 
@@ -228,7 +228,7 @@ class NewspaperThemeController extends SiteController
         $languageID = vp_get_frontend_user_language_id();
         if ( !$languageID ) {
             //#! Get the current language ID
-            $languageID = CPML::getDefaultLanguageID();
+            $languageID = VPML::getDefaultLanguageID();
         }
         $postType = ( new PostType() )->where( 'name', 'post' )->first();
 

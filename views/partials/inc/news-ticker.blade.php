@@ -1,6 +1,6 @@
 @php
     /**@var App\Helpers\Cache $cacheClass*/
-    $cacheClass = app('cp.cache');
+    $cacheClass = app('vp.cache');
     $cacheKey = 'top-bar-latest-news';
     $latestNews = $cacheClass->get($cacheKey, '');
     if( empty( $latestNews ) )

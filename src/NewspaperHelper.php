@@ -3,7 +3,7 @@
 namespace App\Newspaper;
 
 use App\Models\Category;
-use App\Helpers\CPML;
+use App\Helpers\VPML;
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\NewspaperAdminController;
 use App\Models\Post;
@@ -22,7 +22,7 @@ class NewspaperHelper
     public function getTopCategories( int $limit = 0 )
     {
         $query = Category::where( 'category_id', null )
-            ->where( 'language_id', CPML::getDefaultLanguageID() )
+            ->where( 'language_id', VPML::getDefaultLanguageID() )
             ->where( 'post_type_id', PostType::where( 'name', 'post' )->first()->id );
 
         if ( defined( 'NPFR_CATEGORY_PUBLIC' ) ) {

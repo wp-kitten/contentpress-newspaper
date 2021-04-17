@@ -1,8 +1,8 @@
 {{--
     The template to display a user's custom feeds
 --}}
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
-@inject('postStatus',App\Models\PostStatus)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
+@inject('postStatus', 'App\Models\PostStatus')
 @extends('layouts.frontend')
 @php
     /**@var App\Newspaper\NewspaperHelper $newspaperHelper*/

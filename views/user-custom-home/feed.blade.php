@@ -1,7 +1,7 @@
 {{--
     The template to display a feed
 --}}
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 @extends('layouts.frontend')
 @php
     /**@var App\Newspaper\NewspaperHelper $newspaperHelper*/

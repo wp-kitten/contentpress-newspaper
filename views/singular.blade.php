@@ -1,7 +1,7 @@
 {{--
     The general template to display a single post type
 --}}
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 @extends('layouts.frontend')
 @php
     /**@var App\Newspaper\NewspaperHelper $newspaperHelper*/

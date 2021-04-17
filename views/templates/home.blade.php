@@ -1,6 +1,6 @@
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
-@inject('postStatus', App\Models\PostStatus)
-@inject('catModel', App\Models\Category)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
+@inject('postStatus', 'App\Models\PostStatus')
+@inject('catModel', 'App\Models\Category')
 @extends('layouts.frontend')
 
 @php

@@ -2,7 +2,7 @@
     The template to display all tags for teh post type: post
 --}}
 @extends('layouts.frontend')
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 @php /**@var App\Newspaper\NewspaperHelper $newspaperHelper*/ @endphp
 
 @section('title')

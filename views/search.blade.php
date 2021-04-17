@@ -1,7 +1,7 @@
 {{--
         The template to display the search results
 --}}
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 @extends('layouts.frontend')
 @php
     /**@var App\Newspaper\NewspaperHelper $newspaperHelper*/

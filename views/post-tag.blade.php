@@ -1,5 +1,5 @@
 @extends('layouts.frontend')
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 
 @section('title')
     <title>{!! $tag->name !!}</title>

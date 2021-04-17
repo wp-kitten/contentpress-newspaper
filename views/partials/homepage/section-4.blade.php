@@ -5,7 +5,7 @@
     col 1, col 2
         5 x small posts
 --}}
-@inject('postStatus', App\Models\PostStatus)
+@inject('postStatus', 'App\Models\PostStatus')
 @php
     /**@var App\Newspaper\NewspaperHelper $newspaperHelper*/
     /**@var App\Models\Post $post */

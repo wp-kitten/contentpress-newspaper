@@ -1,7 +1,7 @@
 {{--
     Display the Under Maintenance page
 --}}
-@inject('settings', App\Models\Settings)
+@inject('settings', 'App\Models\Settings')
 @extends('layouts.frontend')
 
 @section('title')

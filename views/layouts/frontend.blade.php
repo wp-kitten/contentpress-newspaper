@@ -1,5 +1,5 @@
 <!doctype html>
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 @php
     $currentLanguageCode = App\Helpers\VPML::getFrontendLanguageCode();
     app()->setLocale($currentLanguageCode);

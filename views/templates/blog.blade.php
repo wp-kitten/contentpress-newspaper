@@ -1,6 +1,6 @@
-@inject('postStatus',App\Models\PostStatus)
-@inject('postType',App\Models\PostType)
-@inject('newspaperHelper',App\Newspaper\NewspaperHelper)
+@inject('postStatus', 'App\Models\PostStatus')
+@inject('postType', 'App\Models\PostType')
+@inject('newspaperHelper', 'App\Newspaper\NewspaperHelper')
 @extends('layouts.frontend')
 
 @section('title')

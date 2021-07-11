@@ -7,12 +7,12 @@ use App\Helpers\UserNotices;
 use App\Helpers\Util;
 use App\Http\Controllers\NewspaperAdminController;
 use App\Models\Menu;
-use App\Newspaper\NewspaperHelper;
-use App\Newspaper\NewspaperUserFeeds;
 use App\Models\Options;
 use App\Models\Post;
 use App\Models\PostMeta;
 use App\Models\Settings;
+use App\Newspaper\NewspaperHelper;
+use App\Newspaper\NewspaperUserFeeds;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -130,42 +130,61 @@ add_filter( 'valpress/body-class', function ( $classes = [] ) {
  * Add custom menu items to the main menu
  */
 add_action( 'valpress/menu::main-menu/before', function ( Menu $menu ) {
-//    echo '<div class="topnav bg-dark text-light">';
-    $activeClass = ( Route::is( 'app.home' ) ? 'active' : '' );
-    echo '<a href="' . route( 'app.home' ) . '" class="menu-item ' . $activeClass . '">' . esc_attr( __( 'np::m.Home' ) ) . '</a>';
+    $displayAs = ( new Options() )->getOption( "menu-{$menu->id}-display-as", 'basic' );
+    if ( 'basic' == $displayAs || 'megamenu' == $displayAs ) {
+        echo '<ul class="list-unstyled main-menu vp-navbar-nav">';
+    }
 } );
 add_action( 'valpress/menu::main-menu/after', function ( Menu $menu ) {
-    echo '<a href="#" class="icon btn-toggle-nav js-toggle-menu" title="' . esc_attr( __( 'np::m.Toggle menu' ) ) . '">&#9776;</a>';
-//    echo '</div>';
+    $displayAs = ( new Options() )->getOption( "menu-{$menu->id}-display-as", 'basic' );
+    $menuToggleButton = '<a href="#" class="menu-item icon btn-toggle-nav js-toggle-menu" title="' . esc_attr( __( 'np::m.Toggle menu' ) ) . '">&#9776;</a>';
+
+    if ( 'basic' == $displayAs || 'megamenu' == $displayAs ) {
+        echo '<li class="menu-item-main">' . $menuToggleButton . '</li>';
+        echo '</ul"><!--// END  main-menu vp-navbar-nav-->';
+    }
+    else {
+        echo $menuToggleButton;
+    }
 } );
 add_action( 'valpress/menu::main-menu', function ( Menu $menu ) {
 
     $nh = new NewspaperHelper();
+    $displayAs = ( new Options() )->getOption( "menu-{$menu->id}-display-as", 'basic' );
+    $wrapLi = ( 'basic' == $displayAs || 'megamenu' == $displayAs );
+    $tag = ( $wrapLi ? 'li' : 'div' );
 
     //#! Render the link to the tags page
     $activeClass = ( Route::is( 'post.tags' ) ? 'active' : '' );
+
+    if ( $wrapLi ) {
+        echo '<li>';
+    }
     echo '<a href="' . route( 'post.tags' ) . '" class="menu-item ' . esc_attr( $activeClass ) . '">' . __( 'np::m.Tags' ) . '</a>';
+    if ( $wrapLi ) {
+        echo '</li>';
+    }
 
     //#! Render main categories (latest, limit 10)
     $categories = $nh->getTopCategories( 12 );
     if ( $categories ) {
         $activeClass = ( Str::containsAll( url()->current(), [ 'categories/' ] ) ? 'active' : '' );
         ?>
-        <div class="has-submenu <?php esc_attr_e( $activeClass ); ?>">
-            <button class="show-submenu">
-                <?php esc_html_e( __( 'np::m.Categories' ) ); ?>
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="submenu-content">
-                <?php
-                foreach ( $categories as $category ) {
-                    $url = vp_get_category_link( $category );
-                    $activeClass = ( Str::containsAll( url()->current(), [ $url ] ) ? 'active' : '' );
-                    echo '<a href="' . esc_attr( $url ) . '" class="menu-item ' . esc_attr( $activeClass ) . '">' . $category->name . '</a>';
-                }
-                ?>
-            </div>
+        <<?php echo $tag; ?> class="has-submenu <?php esc_attr_e( $activeClass ); ?>">
+        <button class="show-submenu">
+            <?php esc_html_e( __( 'np::m.Categories' ) ); ?>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="submenu-content">
+            <?php
+            foreach ( $categories as $category ) {
+                $url = vp_get_category_link( $category );
+                $activeClass = ( Str::containsAll( url()->current(), [ $url ] ) ? 'active' : '' );
+                echo '<a href="' . esc_attr( $url ) . '" class="menu-item ' . esc_attr( $activeClass ) . '">' . $category->name . '</a>';
+            }
+            ?>
         </div>
+        </<?php echo $tag; ?>>
         <?php
     }
 
@@ -174,27 +193,27 @@ add_action( 'valpress/menu::main-menu', function ( Menu $menu ) {
         $activeClass = ( Str::containsAll( url()->current(), [ route( 'app.my_feeds' ) ] ) ? 'active' : '' );
         $categories = NewspaperUserFeeds::getUserCategories();
         ?>
-        <div class="has-submenu <?php esc_attr_e( $activeClass ); ?>">
-            <button class="show-submenu">
-                <?php esc_html_e( __( 'np::m.My Feeds' ) ); ?>
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="submenu-content">
-                <?php
-                $activeClass = ( Route::is( 'app.my_feeds' ) ? 'active' : '' );
-                ?>
-                <a href="<?php esc_attr_e( route( 'app.my_feeds' ) ); ?>" class="menu-item <?php esc_attr_e( $activeClass ); ?>"><?php esc_attr_e( __( 'np::m.Home' ) ); ?></a>
-                <?php
-                foreach ( $categories as $categoryID => $info ) {
-                    $category = $info[ 'category' ];
-                    $numFeeds = $info[ 'count' ];
-                    $url = route( 'app.my_feeds.category', $category->slug );
-                    $activeClass = ( Str::containsAll( url()->current(), [ $url ] ) ? 'active' : '' );
-                    echo '<a href="' . esc_attr( $url ) . '" class="menu-item ' . esc_attr( $activeClass ) . '">' . $category->name . ' (' . $numFeeds . ')</a>';
-                }
-                ?>
-            </div>
+        <<?php echo $tag; ?> class="has-submenu <?php esc_attr_e( $activeClass ); ?>">
+        <button class="show-submenu">
+            <?php esc_html_e( __( 'np::m.My Feeds' ) ); ?>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="submenu-content">
+            <?php
+            $activeClass = ( Route::is( 'app.my_feeds' ) ? 'active' : '' );
+            ?>
+            <a href="<?php esc_attr_e( route( 'app.my_feeds' ) ); ?>" class="menu-item <?php esc_attr_e( $activeClass ); ?>"><?php esc_attr_e( __( 'np::m.Home' ) ); ?></a>
+            <?php
+            foreach ( $categories as $categoryID => $info ) {
+                $category = $info[ 'category' ];
+                $numFeeds = $info[ 'count' ];
+                $url = route( 'app.my_feeds.category', $category->slug );
+                $activeClass = ( Str::containsAll( url()->current(), [ $url ] ) ? 'active' : '' );
+                echo '<a href="' . esc_attr( $url ) . '" class="menu-item ' . esc_attr( $activeClass ) . '">' . $category->name . ' (' . $numFeeds . ')</a>';
+            }
+            ?>
         </div>
+        </<?php echo $tag; ?>>
         <?php
     }
 } );

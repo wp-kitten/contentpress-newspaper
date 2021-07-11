@@ -5,7 +5,7 @@
     "views-path": "valpress-newspaper-theme/views",
 
     "display_name": "[ValPress] Newspaper",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "authors": [
         {
             "name": "wp-kitten",
